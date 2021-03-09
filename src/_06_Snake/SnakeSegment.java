@@ -23,4 +23,8 @@ public class SnakeSegment {
 		g.setColor(Snake.SNAKE_COLOR);
 		g.drawRect(location.x * size, location.y * size, size, size);;
 	}
+	public void setLocation(int x, int y) {
+		this.location.x = x;
+		this.location.y = y;
+	}
 }

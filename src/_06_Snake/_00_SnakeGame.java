@@ -19,8 +19,10 @@ import javax.swing.Timer;
 // Go through the methods and complete the steps in this class
 // and the Snake class
 
-//*** YOU WERE WORKING IN THIS CLASS ***
-// you were finishing up methods
+//PROBLEMS:
+//Fix outOfBounds method
+//Fix Length increase for snake
+//Food intake more than two?
 
 
 public class _00_SnakeGame implements ActionListener, KeyListener {
@@ -125,25 +127,25 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		switch(e.getKeyCode()){
 		//up arrow
 		case 38: {
-			snake.setDirection(UP);
+			snake.setDirection(Direction.UP);
 			break;
 		}
 		
 		//down arrow
 		case 40: {
-			snake.setDirection(DOWN);
+			snake.setDirection(Direction.DOWN);
 			break;
 		}
 		
 		//left arrow
 		case 37:{
-			snake.setDirecton(LEFT);
+			snake.setDirection(Direction.LEFT);
 			break;
 		}
 		
 		//right arrow
 		case 39:{
-			snake.setDirection(RIGHT);
+			snake.setDirection(Direction.RIGHT);
 			break;
 		}
 		
@@ -191,9 +193,10 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		//4. if they want to play again
 		//   reset the snake and the food and start the timer
 		//   else, exit the game
-		if(input == "yes" || input == "Yes"){
-			Snake snake = new Snake(null);
+		if(input.equalsIgnoreCase("yes")){
+			snake = new Snake(new Location(WIDTH/2, HEIGHT/2));
 			setFoodLocation();
+			startGame();
 			timer.start();
 		}
 		else{
@@ -210,13 +213,19 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//1. update the snake
-
+		snake.update();
 		//2. if the snake is colliding with its own body 
 		//   or if the snake is out of bounds, call gameOver
-
+		if(snake.isHeadCollidingWithBody() == true){
+			gameOver();
+		}
 		//3. if the location of the head is equal to the location of the food,
 		// 	 feed the snake and set the food location
-
+		if(snake.getHeadLocation().equals(foodLocation)){
+			snake.feed();
+			setFoodLocation();
+		}
 		//4. call panel.repaint();
+		panel.repaint();
 	}
 }
