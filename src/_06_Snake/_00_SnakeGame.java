@@ -16,13 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-// Go through the methods and complete the steps in this class
-// and the Snake class
 
-//PROBLEMS:
-//Fix outOfBounds method
-//Fix Length increase for snake
-//Food intake more than two?
+
 
 
 public class _00_SnakeGame implements ActionListener, KeyListener {
@@ -219,11 +214,15 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		if(snake.isHeadCollidingWithBody() == true){
 			gameOver();
 		}
+		if(snake.isOutOfBounds() == true){
+			gameOver();
+		}
 		//3. if the location of the head is equal to the location of the food,
 		// 	 feed the snake and set the food location
 		if(snake.getHeadLocation().equals(foodLocation)){
 			snake.feed();
 			setFoodLocation();
+			
 		}
 		//4. call panel.repaint();
 		panel.repaint();
